@@ -39,7 +39,7 @@ const Home = (props: any) => {
                     <button onClick={props.onclickNextMoviesRatedPageButton}>Suivant</button>
 
                     <h2 className="mt-2">Les Films les plus populaires</h2>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={3} className="grid-container">
                         {props.moviesPopular?.map((item) => (
                             <Grid item xs={12} sm={4} md={2} key={item.id}>
                                 <MoviesRated item={item} />

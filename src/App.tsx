@@ -37,7 +37,7 @@ const App = () => {
         isPreviousData: isPreviousMoviesRated,
         isFetching: isFetchingMoviesRated,
         error: errorOfMoviesRated,
-    } = useQuery<MovieType[]>(['MoviesRated', movieRatedPage], () => getMoviesRated(movieRatedPage), {
+    } = useQuery<MovieType[]>(['MvRated', movieRatedPage], () => getMoviesRated(movieRatedPage), {
         keepPreviousData: true,
     });
 
@@ -92,6 +92,7 @@ const App = () => {
     return (
         <>
             <Navbar></Navbar>
+
             <Switch>
                 <Route exact path="/" component={HomePage} />
             </Switch>
