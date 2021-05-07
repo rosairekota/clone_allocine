@@ -8,12 +8,14 @@ export const Wrapper = Styled.div`
  justify-content:space-between;
  width:100%;
  //box-shadow: 12px 12px 50px -35px lightblue;
- border:0.2px solid lightblue;
+ //border:0.2px solid lightblue;
+ box-shadow: 12px 12px 50px -35px lightblue;
  border-radius:0 0 20px 20px;
  height:100%;
  margin-top:2rem;
  transform:scale(1);
  transition: transform 550ms;
+ overflow: hidden;
  &:hover{
     padding:0.5rem;
     transform:scale(.9);
@@ -22,17 +24,7 @@ export const Wrapper = Styled.div`
  button{
      border:0 0 20px 20px;
  }
- img{
-     max-height:250px;
-     object-fit:cover;
-     border-radius:20px 20px 0 0;
-     transform:scale(1);
-     transition:transform 300ms;
-
-     &:hover{
-        transform:scale(1.05);
-     }
- }
+ 
  div{
      
      height:100%;
@@ -41,8 +33,6 @@ export const Wrapper = Styled.div`
 
 
  }
- 
- 
 
 .card {
     width: 100%;
@@ -58,13 +48,20 @@ export const Wrapper = Styled.div`
   }
 }
 
+
 .card__header {
   height: 150px;
   width: 100%;
-  padding: 15px;
   width:100%;
   background-size:cover;
   color:#fff;
+  img{
+     height:100%;
+     width:100%;
+     object-fit:cover;
+     
+ }
+ 
 }
 
 .card__header--title {
@@ -75,8 +72,27 @@ export const Wrapper = Styled.div`
 .card__body {
   background-color:#fff;
   height:45%;
+  position:relative;
+ 
+  
+ 
 }
+.movies-rated-over{
+  display:none;
+   position:absolute;
+   top:0;
+   right:0;
+   left:0;
+   background-color:#fff;
+   transform:translateX(100%);
+ 
+ }
 
+ .card__body:hover{
+  transform:translateY(0%);.movies-rated-over{
+    display:block;
+  }
+ }
 .date {
   font-size: 11px;
   font-weight: 600;

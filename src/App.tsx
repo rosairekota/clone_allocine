@@ -2,18 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { MovieType } from './components/Movies/MovieType';
 
-import Movies from './components/Movies/Movies';
-import MoviesRated from './components/Movies/MoviesRated';
-import axios from 'axios';
-import UrlsMovies from './components/Movies/UrlsMovies';
-
 // components(
-import Drawer from '@material-ui/core/Drawer';
+
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Grid from '@material-ui/core/Grid';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import Container from '@material-ui/core/Container';
-import { stringify } from 'querystring';
+
 import { Wrapper } from './App.styles';
 import Navbar from './components/navigation/Navbar';
 
@@ -26,7 +18,7 @@ import Home from './pages/Home';
 // Routing
 import { Route, Switch } from 'react-router-dom';
 
-const movieRatePaginate = getMoviesRated;
+const PER_PAGE = 6;
 const App = () => {
     const [movieRatedPage, setMovieRatedPage] = useState(1);
     const [moviePoluparPage, setMoviePoluparPage] = useState(1);
@@ -59,11 +51,8 @@ const App = () => {
     if (isLoading) return <LinearProgress />;
     else if (error) return <div>Oups,erreur du serveur..</div>;
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setMovieRatedPage(value);
-    };
     const previousPage = () => {
-        setMovieRatedPage((old) => Math.max(old - 1, 1));
+        setMovieRatedPage((old) => Math.max(old - 1, 0));
         setMoviePoluparPage((old) => Math.max(old - 1, 1));
     };
     const nextPage = () => {
@@ -72,9 +61,17 @@ const App = () => {
             setMoviePoluparPage((old) => old + 1);
         }
     };
-    const getages = () => {
-        return !isPreviousData ? nextPage() : previousPage();
-    };
+    function handlePageClick({ selected: selectedPage }) {
+        setMovieRatedPage(selectedPage);
+    }
+
+    const offset = movieRatedPage * PER_PAGE;
+
+    console.log('page 1:1', moviesRated);
+    //const currentPageData = moviesRated.slice(offset, offset + PER_PAGE).map((item) => item);
+
+    const pageCount = Math.ceil(8704 / PER_PAGE);
+
     const HomePage = () => {
         return (
             <Home
@@ -82,8 +79,12 @@ const App = () => {
                 moviesPopular={moviesPopular}
                 movieRatedPage={movieRatedPage}
                 onclickNextMoviesRatedPageButton={nextPage}
-                disabled={movieRatedPage === 1}
+                disabled={movieRatedPage === 0}
                 onclickPrevieusoviesRatedPageButton={previousPage}
+                pageCount={pageCount}
+                offsets={offset + PER_PAGE}
+                offset={offset}
+                handlePageClick={handlePageClick}
             />
         );
     };

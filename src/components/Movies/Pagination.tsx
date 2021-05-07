@@ -20,13 +20,7 @@ const PaginationControlled = (props: any) => {
 
     return (
         <div className={classes.root}>
-            <Pagination
-                count={19 + props.page}
-                page={props.page}
-                onClick={props.handlePrevious}
-                variant="outlined"
-                shape="rounded"
-            />
+            <Pagination count={10} page={props.page} onChange={props.onPageChange} variant="outlined" shape="rounded" />
         </div>
     );
 };
