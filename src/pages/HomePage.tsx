@@ -7,7 +7,7 @@ import { MovieType } from '../components/Movies/MovieType';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import { Wrapper } from './Home.styles';
+import { Wrapper } from './HomePage.styles';
 import PaginationControlled from '../components/Movies/Pagination';
 import ReactPaginate from 'react-paginate';
 import MoviesPopular from '../components/Movies/MoviesPopular/MoviesPopular';
@@ -17,14 +17,14 @@ import MoviesRated from '../components/Movies/MoviesRated/MoviesRated';
 
 // Queries of MOVI API
 
-const Home = (props: any) => {
+const HomePage = (props: any) => {
     return (
         <div>
             <Wrapper>
                 <Container>
                     <h2>Les Meilleurs Films</h2>
                     <Grid container spacing={3} className="grid-container">
-                        {props.moviesRated.slice(props.offset, props.offsets)?.map((item) => (
+                        {props.moviesRated?.map((item) => (
                             <Grid item xs={12} sm={4} md={2} key={item.id}>
                                 <MoviesRated item={item} />
                             </Grid>
@@ -34,17 +34,13 @@ const Home = (props: any) => {
                         previousLabel={'← Précédent'}
                         nextLabel={'Suivant →'}
                         pageCount={props.pageCount}
-                        onPageChange={props.handlePageClick}
+                        onPageChange={props.handleMoviesRatedPagination}
                         containerClassName={'pagination'}
                         previousLinkClassName={'pagination__link'}
                         nextLinkClassName={'pagination__link'}
                         disabledClassName={'pagination__link--disabled'}
                         activeClassName={'pagination__link--active'}
                     />
-                    {/* <button onClick={props.onclickPrevieusoviesRatedPageButton} disabled={props.disabled}>
-                        Precedent
-                    </button>
-                    <button onClick={props.onclickNextMoviesRatedPageButton}>Suivant</button> */}
 
                     <h2 className="mt-2">Les Films les plus populaires</h2>
                     <Grid container spacing={3} className="grid-container">
@@ -57,8 +53,8 @@ const Home = (props: any) => {
                     <ReactPaginate
                         previousLabel={'← Précédent'}
                         nextLabel={'Suivant →'}
-                        pageCount={props.pageCount}
-                        onPageChange={props.handlePageClick}
+                        pageCount={10000 / 20}
+                        onPageChange={props.handleMoviesPopularPagination}
                         containerClassName={'pagination'}
                         previousLinkClassName={'pagination__link'}
                         nextLinkClassName={'pagination__link'}
@@ -71,4 +67,4 @@ const Home = (props: any) => {
     );
 };
 
-export default Home;
+export default HomePage;

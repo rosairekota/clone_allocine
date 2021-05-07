@@ -6,7 +6,8 @@ export const getMoviesRated = async (page = 1): Promise<MovieType[]> => {
     return await (await axios.get(UrlsMovies(page).urlMoviesRated)).data.results;
 };
 export const getMoviesPopular = async (page = 1): Promise<MovieType[]> => {
-    return await (await axios.get(UrlsMovies(page).urlMoviesRated)).data.results;
+    //console.log('POPULAR DUMPER:', await (await axios.get(UrlsMovies(page).urlMoviesPopular)).data);
+    return await (await axios.get(UrlsMovies(page).urlMoviesPopular)).data.results;
 };
 // export const getMoviesRated = async () => {
 //     let paginate = {};

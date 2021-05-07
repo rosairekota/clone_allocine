@@ -12,7 +12,7 @@ const Movies = ({ item }: any) => {
                 </div>
                 <div className="card__body">
                     <p className="date">Budget {item.budget}</p>
-                    <h4>{item.original_title}</h4>
+                    <h4>{item.title}</h4>
 
                     <p className="body__content">Votes★★★:{item.vote_count}</p>
 

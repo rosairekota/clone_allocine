@@ -14,11 +14,10 @@ export const Wrapper = Styled.div`
  height:100%;
  margin-top:2rem;
  transform:scale(1);
- transition: transform 550ms;
+ transition: transform 250ms;
  overflow: hidden;
  &:hover{
-    padding:0.5rem;
-    transform:scale(.9);
+    transform:scale(.88);
  }
 .mt-2{margin-top:2rem;}
  button{

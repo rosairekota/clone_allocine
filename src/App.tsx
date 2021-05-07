@@ -14,11 +14,11 @@ import Navbar from './components/navigation/Navbar';
 import { getMoviesRated } from './components/Movies/MoviesQueriesApi';
 import { getMoviesPopular } from './components/Movies/MoviesQueriesApi';
 
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
 // Routing
 import { Route, Switch } from 'react-router-dom';
 
-const PER_PAGE = 6;
+const PER_PAGE = 20;
 const App = () => {
     const [movieRatedPage, setMovieRatedPage] = useState(1);
     const [moviePoluparPage, setMoviePoluparPage] = useState(1);
@@ -53,7 +53,7 @@ const App = () => {
 
     const previousPage = () => {
         setMovieRatedPage((old) => Math.max(old - 1, 0));
-        setMoviePoluparPage((old) => Math.max(old - 1, 1));
+        setMoviePoluparPage((old) => Math.max(old - 1, 0));
     };
     const nextPage = () => {
         if (!isPreviousData && moviesRated?.length) {
@@ -61,41 +61,38 @@ const App = () => {
             setMoviePoluparPage((old) => old + 1);
         }
     };
-    function handlePageClick({ selected: selectedPage }) {
+    const handleMoviesRatedPagination = ({ selected: selectedPage }) => {
         setMovieRatedPage(selectedPage);
-    }
+    };
 
+    const handleMoviesPopularPagination = ({ selected: selectedPage }) => {
+        setMoviePoluparPage(selectedPage);
+    };
     const offset = movieRatedPage * PER_PAGE;
 
-    console.log('page 1:1', moviesRated);
     //const currentPageData = moviesRated.slice(offset, offset + PER_PAGE).map((item) => item);
 
     const pageCount = Math.ceil(8704 / PER_PAGE);
 
-    const HomePage = () => {
-        return (
-            <Home
-                moviesRated={moviesRated}
-                moviesPopular={moviesPopular}
-                movieRatedPage={movieRatedPage}
-                onclickNextMoviesRatedPageButton={nextPage}
-                disabled={movieRatedPage === 0}
-                onclickPrevieusoviesRatedPageButton={previousPage}
-                pageCount={pageCount}
-                offsets={offset + PER_PAGE}
-                offset={offset}
-                handlePageClick={handlePageClick}
-            />
-        );
-    };
-    console.log('paginate:', moviesRated);
-    // setMoviesRated(moviesRated);
     return (
         <>
-            <Navbar></Navbar>
+            {/* <Navbar></Navbar> */}
 
             <Switch>
-                <Route exact path="/" component={HomePage} />
+                <Route exact path="/">
+                    <HomePage
+                        moviesRated={moviesRated}
+                        moviesPopular={moviesPopular}
+                        movieRatedPage={movieRatedPage}
+                        pageCount={pageCount}
+                        offsets={offset + PER_PAGE}
+                        offset={offset}
+                        handleMoviesRatedPagination={handleMoviesRatedPagination}
+                        handleMoviesPopularPagination={handleMoviesPopularPagination}
+                        onclickPrevieusoviesRatedPageButton={previousPage}
+                        onclickNextMoviesRatedPageButton={nextPage}
+                    />
+                </Route>
             </Switch>
         </>
     );
